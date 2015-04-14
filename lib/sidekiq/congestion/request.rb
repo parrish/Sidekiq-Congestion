@@ -21,10 +21,18 @@ module Sidekiq
         !!options
       end
 
+      def reschedule?
+        rejection_method == :reschedule
+      end
+
+      def reschedule!
+        worker.class.perform_in backoff, *args
+      end
+
       def key
         @key ||= case options[:key]
         when Proc
-          options[:key].call args
+          options[:key].call *args
         when String, Symbol
           options[:key].to_s
         else
@@ -34,6 +42,12 @@ module Sidekiq
 
       def congestion
         @congestion ||= ::Congestion.request key, options
+      end
+
+      protected
+
+      def rejection_method
+        options.fetch(:reject_with, :reschedule).to_sym
       end
     end
   end

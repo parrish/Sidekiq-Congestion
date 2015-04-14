@@ -18,6 +18,18 @@ RSpec.describe Sidekiq::Congestion::Request do
     end
   end
 
+  describe '#reschedule?' do
+    context 'when enabled' do
+      before(:each){ request.options[:reject_with] = :reschedule }
+      it{ is_expected.to be_reschedule }
+    end
+
+    context 'when disabled' do
+      before(:each){ request.options[:reject_with] = :cancel }
+      it{ is_expected.to_not be_reschedule }
+    end
+  end
+
   describe '#options' do
     subject{ request.options }
 
@@ -52,7 +64,7 @@ RSpec.describe Sidekiq::Congestion::Request do
     end
 
     context 'with a proc key' do
-      let(:proc_key){ ->(args){ "something_#{ args.join('-') }" } }
+      let(:proc_key){ ->(*args){ "something_#{ args.join('-') }" } }
       before(:each){ request.options[:key] = proc_key }
       it{ is_expected.to eql 'something_foo-bar' }
     end
@@ -67,6 +79,14 @@ RSpec.describe Sidekiq::Congestion::Request do
     it 'should memoize the result' do
       expect(::Congestion).to receive(:request).once.and_call_original
       2.times{ request.congestion }
+    end
+  end
+
+  describe '#reschedule!' do
+    it 'should schedule the job' do
+      allow(request).to receive(:backoff).and_return 123
+      expect(worker).to receive(:perform_in).with 123, *job['args']
+      request.reschedule!
     end
   end
 

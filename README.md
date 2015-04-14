@@ -52,10 +52,12 @@ class YourWorker
   include Sidekiq::Worker
 
   # Allow 5 calls/hour, with at least 5 minutes between calls
+  # When the request is not allowed, it is rescheduled
   sidekiq_options congestion: {
     interval: 1.hour,
     max_in_interval: 5,
-    min_delay: 5.minutes
+    min_delay: 5.minutes,
+    reject_with: :reschedule # (or :cancel)
   }
 end
 ```
