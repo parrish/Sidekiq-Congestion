@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/parrish/Sidekiq-Congestion.svg?branch=master)](https://travis-ci.org/parrish/Sidekiq-Congestion)
 [![Test Coverage](https://codeclimate.com/github/parrish/Sidekiq-Congestion/badges/coverage.svg)](https://codeclimate.com/github/parrish/Sidekiq-Congestion)
 [![Code Climate](https://codeclimate.com/github/parrish/Sidekiq-Congestion/badges/gpa.svg)](https://codeclimate.com/github/parrish/Sidekiq-Congestion)
+[![Gem Version](https://badge.fury.io/rb/sidekiq-congestion.svg)](http://badge.fury.io/rb/sidekiq-congestion)
 
 Sidekiq middleware for [Congestion](https://github.com/parrish/Congestion)
 
