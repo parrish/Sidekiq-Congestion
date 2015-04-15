@@ -11,4 +11,4 @@ jruby_before_script:
 addons:
   code_climate:
     repo_token:
-      secure: YL7mBXUP07n+gybTpteIWwHg/hUbJns1Q/O+pdsphrbD54ikKPI1Frir1woLPdyrPYSJ3jUiQNbBjy8lTope7DH+SI7JsUV2vjPDKUfnb+VsCD/KI9UxIAt5e1NkdIgDFSZHj9Qh3vOw6/8X+mQ9mh0Nlwhicjb146IXfG73XjM=
+      secure: Cq/HqCd4sAZHFwrE7oM8wXg439sz0PBzMwUsfIvZt9QNS9QNXCifQKIBdQZXDO/D3Kep53EGasWuLe3Na9U2L0v3GCBEwlkY0/gRV3fupHVOztSF430BEsIOYQ8Zr9ab62B4Jcxy326MiJrhKOZnLZrneITfAGdBoHF63mDwD50=
