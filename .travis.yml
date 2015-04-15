@@ -8,7 +8,3 @@ services:
   - redis-server
 jruby_before_script:
   - bundle exec jbundle install
-addons:
-  code_climate:
-    repo_token:
-      secure: Cq/HqCd4sAZHFwrE7oM8wXg439sz0PBzMwUsfIvZt9QNS9QNXCifQKIBdQZXDO/D3Kep53EGasWuLe3Na9U2L0v3GCBEwlkY0/gRV3fupHVOztSF430BEsIOYQ8Zr9ab62B4Jcxy326MiJrhKOZnLZrneITfAGdBoHF63mDwD50=
