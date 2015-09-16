@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Sidekiq::Congestion do
-  it 'should enable track_rejected' do
-    expect(::Congestion.default_options).to include track_rejected: true
+  it 'should disable track_rejected' do
+    expect(::Congestion.default_options).to include track_rejected: false
   end
 
   it 'should set the redis connection' do
