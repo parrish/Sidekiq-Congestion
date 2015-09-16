@@ -60,11 +60,16 @@ class YourWorker
     min_delay: 5.minutes,
     reject_with: :reschedule, # (or :cancel)
     track_rejected: false, # false by default, see above
-    # restrict the scope of the limit via job params
+    # Restrict the scope of the limit via job params
+    # `key` is called with the same arguments as perform
     key: ->(user_id) {
       "user_#{ user_id }_unique_job_identifier"
     }
   }
+
+  def perform(user_id)
+    # ...
+  end
 end
 ```
 
