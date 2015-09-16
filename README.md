@@ -58,7 +58,12 @@ class YourWorker
     interval: 1.hour,
     max_in_interval: 5,
     min_delay: 5.minutes,
-    reject_with: :reschedule # (or :cancel)
+    reject_with: :reschedule, # (or :cancel)
+    track_rejected: false, # false by default, see above
+    # restrict the scope of the limit via job params
+    key: ->(user_id) {
+      "user_#{ user_id }_unique_job_identifier"
+    }
   }
 end
 ```
