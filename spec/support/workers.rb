@@ -23,3 +23,20 @@ class UnlimitedWorker
   def perform(*args)
   end
 end
+
+class ConditionalWorker
+  include Sidekiq::Worker
+
+  sidekiq_options congestion: { }
+
+  def self.true_proc
+    ->(*args){ true }
+  end
+
+  def self.false_proc
+    ->(*args){ false }
+  end
+
+  def perform(*args)
+  end
+end

@@ -7,7 +7,7 @@ RSpec.shared_context 'sidekiq helper' do
 
   def process_job
     work = Sidekiq::BasicFetch.new(Sidekiq.options).retrieve_work
-    processor.process(work) if work
+    processor.send(:process, work) if work
   end
 
   around(:each) do |example|

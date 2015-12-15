@@ -18,23 +18,27 @@ RSpec.describe Sidekiq::Congestion::Request do
     end
 
     context 'with true' do
+      let(:worker){ ConditionalWorker }
       before(:each){ request.options[:enabled] = true }
       it{ is_expected.to be_enabled }
     end
 
     context 'with false' do
+      let(:worker){ ConditionalWorker }
       before(:each){ request.options[:enabled] = false }
       it{ is_expected.to_not be_enabled }
     end
 
     context 'with a proc' do
+      let(:worker){ ConditionalWorker }
+
       context 'returning false' do
-        before(:each){ request.options[:enabled] = ->(*args){ false } }
+        before(:each){ request.options[:enabled] = worker.false_proc }
         it{ is_expected.to_not be_enabled }
       end
 
       context 'returning true' do
-        before(:each){ request.options[:enabled] = ->(*args){ true } }
+        before(:each){ request.options[:enabled] = worker.true_proc }
         it{ is_expected.to be_enabled }
       end
     end
