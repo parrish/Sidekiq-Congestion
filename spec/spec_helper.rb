@@ -6,13 +6,15 @@ require 'pry'
 require 'rspec/its'
 require 'timecop'
 
-require 'celluloid'
 require 'sidekiq'
+require 'celluloid' if Sidekiq::VERSION < '4'
+
 require 'sidekiq/processor'
 require 'sidekiq/fetch'
 require 'sidekiq/congestion'
 
-Celluloid.logger = Sidekiq.logger = nil
+Celluloid.logger = nil if Sidekiq::VERSION < '4'
+Sidekiq.logger = nil
 Sidekiq.options[:queues] << 'default'
 
 module Sidekiq
