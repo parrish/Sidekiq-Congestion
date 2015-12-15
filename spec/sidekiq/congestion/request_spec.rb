@@ -7,14 +7,36 @@ RSpec.describe Sidekiq::Congestion::Request do
   subject{ request }
 
   describe '#enabled?' do
-    context 'when enabled' do
+    context 'when enabled and not set' do
       let(:worker){ LimitedWorker }
       it{ is_expected.to be_enabled }
     end
 
-    context 'when disabled' do
+    context 'when disabled and not set' do
       let(:worker){ UnlimitedWorker }
       it{ is_expected.to_not be_enabled }
+    end
+
+    context 'with true' do
+      before(:each){ request.options[:enabled] = true }
+      it{ is_expected.to be_enabled }
+    end
+
+    context 'with false' do
+      before(:each){ request.options[:enabled] = false }
+      it{ is_expected.to_not be_enabled }
+    end
+
+    context 'with a proc' do
+      context 'returning false' do
+        before(:each){ request.options[:enabled] = ->(*args){ false } }
+        it{ is_expected.to_not be_enabled }
+      end
+
+      context 'returning true' do
+        before(:each){ request.options[:enabled] = ->(*args){ true } }
+        it{ is_expected.to be_enabled }
+      end
     end
   end
 

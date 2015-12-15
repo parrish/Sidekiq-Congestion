@@ -18,7 +18,7 @@ module Sidekiq
       end
 
       def enabled?
-        !!options
+        !!options && _enabled?
       end
 
       def reschedule?
@@ -45,6 +45,17 @@ module Sidekiq
       end
 
       protected
+
+      def _enabled?
+        case options[:enabled]
+        when Proc
+          options[:enabled].call *args
+        when nil
+          true
+        else
+          !!options[:enabled]
+        end
+      end
 
       def rejection_method
         options.fetch(:reject_with, :reschedule).to_sym

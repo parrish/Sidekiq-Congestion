@@ -62,8 +62,13 @@ class YourWorker
     track_rejected: false, # false by default, see above
     # Restrict the scope of the limit via job params
     # `key` is called with the same arguments as perform
-    key: ->(user_id) {
-      "user_#{ user_id }_unique_job_identifier"
+    key: ->(user) {
+      "user_#{ user.id }_unique_job_identifier"
+    },
+    # Conditionally enable/disable the limit
+    # returning false will bypass the limit
+    enabled: ->(user) {
+      !user.admin?
     }
   }
 
